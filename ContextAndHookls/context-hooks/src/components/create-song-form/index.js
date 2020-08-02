@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { SongContext } from '../../contexts/SongContext';
 
-const CreateSongForm = ( {addSong} ) => {
+const CreateSongForm = () => {
+    const { dispatch } = useContext(SongContext);
+
     const [title, setTitle] = useState('');
     const [artist, setArtist] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addSong(title, artist)
+        dispatch({type: 'ADD_SONG', song: {
+            title, 
+            artist
+        }})
         setArtist('');
         setTitle('')
     }
@@ -17,6 +23,7 @@ const CreateSongForm = ( {addSong} ) => {
                 <label>Song name:</label>
                 <input
                     type="text"
+                    placeholder="Song Title"
                     required
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -27,6 +34,7 @@ const CreateSongForm = ( {addSong} ) => {
                 <label>Artist:</label>
                 <input
                     type="text"
+                    placeholder="Artist"
                     required
                     value={artist}
                     onChange={(e) => setArtist(e.target.value)}
@@ -34,7 +42,7 @@ const CreateSongForm = ( {addSong} ) => {
             </div>
 
             <div>
-                <button type="submit">Create</button>
+                <button type="submit">Add Song</button>
             </div>
         </form>
     )

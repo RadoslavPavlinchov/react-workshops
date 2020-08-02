@@ -1,10 +1,10 @@
 import React from 'react';
 import Navbar from './components/navbar';
-import BookList from './components/book-list';
-import ThemeContextProvider from './contexts/ThemeContext';
-import ThemeToggle from './components/theme-toggle';
-import AuthContextProvider from './contexts/AuthContext';
 import SongList from './components/song-list';
+import ThemeContextProvider from './contexts/ThemeContext';
+import AuthContextProvider from './contexts/AuthContext';
+import SongContextProvider from './contexts/SongContext';
+import CreateSongForm from './components/create-song-form';
 
 function App() {
   return (
@@ -12,10 +12,15 @@ function App() {
       <ThemeContextProvider>
 
         <AuthContextProvider>
-          <Navbar />
-          <BookList />
-          <SongList />
-          <ThemeToggle />
+
+          <SongContextProvider>
+
+            <Navbar />
+            <CreateSongForm />
+            <SongList />
+
+          </SongContextProvider>
+
         </AuthContextProvider>
 
       </ThemeContextProvider>

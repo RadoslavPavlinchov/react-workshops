@@ -1,40 +1,27 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import CreateSongForm from '../create-song-form';
+import React, { useContext } from 'react';
+// import { ThemeContext } from '../../contexts/ThemeContext';
+import { SongContext } from '../../contexts/SongContext';
+// import ThemeToggle from '../theme-toggle';
+import SongDetails from '../song-details'
 
 const SongList = () => {
-    const [songs, setSongs] = useState([
-        {
-            title: 'Never Look Back',
-            artist: 'Run The Jewels',
-            id: 1
-        },
-        {
-            title: 'Nobody Speak',
-            artist: 'Run The Jewels',
-            id: 2
-        },
-        {
-            title: 'Legend Has It',
-            artist: 'Run The Jewels',
-            id: 3
-        }
-    ])
+    const { songs } = useContext(SongContext);
+    // const { isLightTheme, light, dark } = useContext(ThemeContext);
+    // const theme = isLightTheme ? light : dark;
 
-    const addSong = (title, artist) => {
-        setSongs([...songs, { title, artist, id: uuidv4() }])
-    }
-
-    return (
+    return songs.length ? (
         <div className="song-list">
             <ul>
-                {songs.map(song => {
-                    return (<li key={song.id}>{song.title}</li>)
+                {songs.map(({title, artist, id}) => {
+                    return (<SongDetails title={title} artist={artist} key={id} id={id}/>)
                 })}
             </ul>
+          {/* <ThemeToggle /> */}
 
-            <CreateSongForm addSong={addSong}/>
-
+        </div>
+    ) : (
+        <div className="empty">
+            You do not have anything added so far
         </div>
     )
 }
